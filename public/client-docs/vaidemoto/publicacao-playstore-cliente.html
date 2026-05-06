@@ -216,17 +216,17 @@
 
     <section>
       <h2>Escopo e equipe</h2>
-      <p>O VAI DE MOTO e tratado como um projeto pequeno, com escopo controlado e uma equipe operacional de 3 pessoas.</p>
+      <p>O VAI DE MOTO e tratado como um projeto pequeno, com escopo controlado e execucao por 1 desenvolvedor.</p>
       <div class="timeline">
-        <div class="label">Pessoa 1</div>
-        <div>Organizacao do projeto, alinhamento com o cliente, materiais da loja e acompanhamento da Play Console.</div>
-        <div class="label">Pessoa 2</div>
-        <div>Preparacao tecnica do aplicativo, build Android, assinatura, testes em aparelho real e envio do pacote AAB.</div>
-        <div class="label">Pessoa 3</div>
-        <div>Banco de dados, Supabase, regras de acesso, dados de teste, verificacao de seguranca e suporte aos testes.</div>
+        <div class="label">Dev unico</div>
+        <div>Organizacao tecnica, publicacao na Play Console, build Android, banco de dados, testes e acompanhamento da revisao.</div>
+        <div class="label">Cliente</div>
+        <div>Aprovacao de nome, textos, imagens, politica de privacidade, conta Google, acessos e usuarios de teste.</div>
+        <div class="label">Prioridade</div>
+        <div>Congelar novas funcionalidades durante a publicacao e focar em estabilidade, privacidade, banco de dados e envio correto para a loja.</div>
       </div>
       <p class="note">
-        A equipe reduzida facilita a comunicacao, mas exige aprovacoes rapidas do cliente para evitar paradas em conta Google, politica de privacidade, dados de acesso e materiais da loja.
+        Como existe apenas 1 desenvolvedor, os prazos dependem diretamente da resposta do cliente. Atrasos em conta Google, politica de privacidade, dados de acesso ou materiais da loja paralisam o fluxo.
       </p>
     </section>
 
@@ -299,24 +299,26 @@
 
     <section>
       <h2>Banco de dados e dados do app</h2>
-      <p>O aplicativo usa Supabase como base de dados e autenticacao. Antes da publicacao, essa parte precisa estar revisada porque a Play Store tambem avalia privacidade, login e coleta de dados.</p>
+      <p>O aplicativo usa Supabase como base de dados e autenticacao. Para um projeto pequeno, a estrutura atual e suficiente, mas exige revisao cuidadosa porque guarda dados de usuarios, corridas, localizacao, motorista, avaliacao, notificacoes e registros financeiros.</p>
       <div class="timeline">
         <div class="label">Usuarios</div>
-        <div>Cadastro, login, perfis de passageiro, motorista e administrador.</div>
+        <div>Cadastro, login, perfis de passageiro, motorista e administrador, incluindo dados pessoais e documentos informados no perfil.</div>
         <div class="label">Corridas</div>
         <div>Solicitacoes, status, motorista vinculado, valores, localizacao e historico operacional.</div>
         <div class="label">Financeiro</div>
         <div>Configuracoes da plataforma, transacoes de motorista, formas de pagamento e registros usados em relatorios.</div>
+        <div class="label">Notificacoes</div>
+        <div>Inscricoes de push e infraestrutura de email para mensagens transacionais e autenticacao.</div>
         <div class="label">Arquivos</div>
         <div>Fotos de perfil, anexos ou imagens armazenadas em buckets controlados pelo Supabase.</div>
         <div class="label">Seguranca</div>
         <div>Politicas de acesso para que cada usuario veja apenas os dados permitidos ao seu perfil.</div>
       </div>
       <ul>
-        <li>Confirmar se o banco de producao ja esta separado do ambiente de teste.</li>
-        <li>Conferir se existe backup ou plano de recuperacao para dados de usuarios e corridas.</li>
-        <li>Usar dados ficticios para revisao da Google quando possivel.</li>
-        <li>Declarar corretamente na Play Store dados pessoais, localizacao, notificacoes, contato e compartilhamento com terceiros.</li>
+        <li>Analise geral: o banco atende ao porte do projeto, mas nao deve ser tratado como simples, pois combina dados pessoais, operacao em tempo real, financeiro e permissoes por perfil.</li>
+        <li>Ponto positivo: o projeto ja usa politicas de acesso por usuario, motorista e administrador, reduzindo risco de exposicao indevida.</li>
+        <li>Ponto de atencao: revisar ambiente de producao separado de teste, backups, dados reais, chaves de acesso e usuarios de teste antes de liberar para a Google.</li>
+        <li>Ponto de privacidade: declarar corretamente dados pessoais, localizacao, notificacoes, contato, pagamentos e compartilhamento com terceiros como Supabase e Google Maps.</li>
       </ul>
     </section>
 
@@ -338,17 +340,20 @@
 
     <section>
       <h2>Prazos esperados</h2>
-      <p>O prazo considera projeto pequeno, equipe de 3 pessoas e materiais respondidos sem atraso pelo cliente. Uma estimativa pratica:</p>
+      <p>O prazo considera projeto pequeno, 1 desenvolvedor e materiais respondidos sem atraso pelo cliente. Uma estimativa pratica:</p>
       <div class="timeline">
-        <div class="label">1 a 2 dias</div>
-        <div>Preparacao tecnica do app, revisao do banco de dados, build Android, icones, ficha inicial e testes basicos.</div>
-        <div class="label">1 a 3 dias</div>
-        <div>Ajustes apos testes, revisao dos textos, politica de privacidade e declaracoes obrigatorias.</div>
+        <div class="label">2 a 4 dias uteis</div>
+        <div>Preparacao tecnica do app, revisao do banco Supabase, build Android, icones, ficha inicial e testes basicos.</div>
+        <div class="label">2 a 5 dias uteis</div>
+        <div>Ajustes apos testes, revisao dos textos, politica de privacidade, declaracoes obrigatorias e correcao de apontamentos.</div>
         <div class="label">Horas a dias</div>
         <div>Revisao da Google apos o envio para producao.</div>
         <div class="label">14 dias</div>
         <div>Pode ser necessario em contas pessoais novas que precisam cumprir teste fechado com 12 testadores.</div>
       </div>
+      <p class="note">
+        Estimativa total antes da revisao da Google: 4 a 9 dias uteis para um fluxo bem respondido. O prazo aumenta se houver ajuste de banco, politica de privacidade, conta Play Console, login de teste ou reprova da Google.
+      </p>
     </section>
 
     <section>

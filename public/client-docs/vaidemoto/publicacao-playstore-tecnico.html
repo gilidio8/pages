@@ -254,31 +254,31 @@
 
     <section>
       <h2>Equipe e escopo operacional</h2>
-      <p>Projeto pequeno, conduzido por 3 pessoas. A divisao recomendada para evitar sobreposicao:</p>
+      <p>Projeto pequeno, conduzido por 1 desenvolvedor. A execucao deve ser sequenciada para evitar troca constante de contexto:</p>
       <table>
         <tr>
-          <th>Responsavel</th>
+          <th>Frente</th>
           <th>Foco</th>
           <th>Entregaveis</th>
         </tr>
         <tr>
-          <td>Pessoa 1</td>
+          <td>1. Loja e cliente</td>
           <td>Gestao e loja</td>
           <td>Conta Play Console, textos, screenshots, politica de privacidade, respostas de declaracoes e comunicacao com o cliente.</td>
         </tr>
         <tr>
-          <td>Pessoa 2</td>
+          <td>2. Aplicativo Android</td>
           <td>Aplicativo Android</td>
           <td>Capacitor, appId final, build web, pasta Android, assinatura, AAB, testes em aparelho real e envio da release.</td>
         </tr>
         <tr>
-          <td>Pessoa 3</td>
+          <td>3. Banco e backend</td>
           <td>Banco de dados e backend</td>
           <td>Supabase, migracoes, RLS, Edge Functions, variaveis de ambiente, usuarios de teste, backup e validacao de dados.</td>
         </tr>
       </table>
       <div class="info">
-        Para manter o projeto pequeno, novas funcionalidades devem ser congeladas durante a fase de publicacao. A prioridade passa a ser estabilidade, privacidade, build assinado e revisao da Google.
+        Para manter o projeto pequeno e viavel para 1 dev, novas funcionalidades devem ser congeladas durante a fase de publicacao. A prioridade passa a ser estabilidade, privacidade, build assinado, banco revisado e revisao da Google.
       </div>
     </section>
 
@@ -316,6 +316,9 @@ export default config;</code></pre>
     <section>
       <h2>Banco de dados Supabase</h2>
       <p>O projeto usa Supabase no frontend por <code>src/integrations/supabase/client.ts</code> e possui migracoes em <code>supabase/migrations</code>.</p>
+      <div class="info">
+        Analise: para o tamanho do produto, o banco tem complexidade media. Ele nao e apenas cadastro e login; tambem cobre corrida em tempo real, financeiro, notificacoes, storage, email e regras de acesso por perfil. Antes da Play Store, a revisao do banco deve ser tratada como etapa obrigatoria, nao como detalhe final.
+      </div>
       <table>
         <tr>
           <th>Area</th>
@@ -325,12 +328,12 @@ export default config;</code></pre>
         <tr>
           <td>Autenticacao</td>
           <td>Usuarios em <code>auth.users</code>, perfis em <code>profiles</code> e papeis em <code>user_roles</code>.</td>
-          <td>Criar usuario de teste para Google e confirmar fluxo de cadastro/login/redefinicao de senha.</td>
+          <td>Criar usuario de teste para Google e confirmar cadastro, login, recuperacao de senha, papel de passageiro, motorista e administrador.</td>
         </tr>
         <tr>
           <td>Operacao</td>
           <td><code>rides</code>, <code>driver_details</code>, <code>ride_ratings</code> e status de corrida.</td>
-          <td>Testar passageiro, motorista, aceite de corrida, cancelamento, conclusao e avaliacao.</td>
+          <td>Testar passageiro, motorista, aceite de corrida, cancelamento, conclusao, avaliacao, localizacao e historico.</td>
         </tr>
         <tr>
           <td>Financeiro</td>
@@ -340,12 +343,51 @@ export default config;</code></pre>
         <tr>
           <td>Notificacoes</td>
           <td><code>push_subscriptions</code> e funcoes relacionadas a notificacao/email.</td>
-          <td>Confirmar permissao de notificacao no Android e comportamento quando o usuario nega a permissao.</td>
+          <td>Confirmar permissao de notificacao no Android, comportamento quando o usuario nega a permissao e duplicidade das migrations de push.</td>
         </tr>
         <tr>
           <td>Storage</td>
           <td>Buckets como <code>avatars</code> e <code>email-assets</code>.</td>
           <td>Revisar politicas de leitura/escrita e evitar exposicao indevida de documentos ou imagens.</td>
+        </tr>
+      </table>
+
+      <h3>Leitura tecnica do estado atual</h3>
+      <table>
+        <tr>
+          <th>Ponto</th>
+          <th>Analise</th>
+          <th>Acao recomendada</th>
+        </tr>
+        <tr>
+          <td>RLS</td>
+          <td>As tabelas principais usam Row Level Security com regras para passageiro, motorista e administrador.</td>
+          <td>Revalidar cada fluxo com usuarios reais de cada papel antes da release.</td>
+        </tr>
+        <tr>
+          <td>Dados sensiveis</td>
+          <td><code>profiles</code> inclui dados pessoais como telefone, endereco e RG; <code>rides</code> inclui localizacao e historico.</td>
+          <td>Conferir politica de privacidade, Data Safety e acesso administrativo.</td>
+        </tr>
+        <tr>
+          <td>Financeiro</td>
+          <td>Existe logica para configuracoes da plataforma e transacoes de motorista.</td>
+          <td>Testar calculo, comissao, cancelamento, pagamento em dinheiro/PIX e relatorios.</td>
+        </tr>
+        <tr>
+          <td>Notificacoes e email</td>
+          <td>Ha infraestrutura de push e email com tabelas de log, estado, supressao e tokens.</td>
+          <td>Validar chaves, filas, permissao Android e mensagens de erro antes de producao.</td>
+        </tr>
+        <tr>
+          <td>Storage</td>
+          <td>Buckets como <code>avatars</code> e <code>email-assets</code> possuem politicas de acesso proprias.</td>
+          <td>Confirmar o que pode ser publico e o que deve ficar restrito.</td>
+        </tr>
+        <tr>
+          <td>Migrations</td>
+          <td>O historico tem muitas alteracoes incrementais, normal em projeto evoluido por iteracoes.</td>
+          <td>Aplicar em ambiente limpo de teste antes de producao e verificar estado final do schema.</td>
         </tr>
       </table>
 
@@ -366,6 +408,8 @@ VITE_SUPABASE_PUBLISHABLE_KEY=...</code></pre>
         <li>Validar politicas para passageiro, motorista e administrador.</li>
         <li>Executar teste com usuarios reais de cada papel antes de enviar para revisao.</li>
         <li>Confirmar rotina de backup ou exportacao do banco antes de abrir o app para usuarios finais.</li>
+        <li>Revisar se a chave anon/publica esta limitada por RLS e se nenhuma service role key esta exposta no frontend.</li>
+        <li>Confirmar se o banco de producao nao contem dados de teste usados na revisao da Google.</li>
       </ul>
     </section>
 

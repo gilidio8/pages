@@ -333,6 +333,22 @@ const server = createServer(async (request, response) => {
     return;
   }
 
+  if (pathname.startsWith("/client-docs/")) {
+    if (!allowedDocumentPaths.has(pathname)) {
+      send(response, 404, "Not found", "text/plain; charset=utf-8");
+      return;
+    }
+
+    const filePath = getSafeFilePath(pathname);
+    if (!filePath) {
+      send(response, 403, "Forbidden", "text/plain; charset=utf-8");
+      return;
+    }
+
+    await serveFile(request, response, filePath);
+    return;
+  }
+
   if (!isAuthenticated(request)) {
     redirect(response, loginPath(pathname));
     return;
@@ -349,22 +365,6 @@ const server = createServer(async (request, response) => {
       return;
     }
     send(response, 404, "Not found", "text/plain; charset=utf-8");
-    return;
-  }
-
-  if (pathname.startsWith("/client-docs/")) {
-    if (!allowedDocumentPaths.has(pathname)) {
-      send(response, 404, "Not found", "text/plain; charset=utf-8");
-      return;
-    }
-
-    const filePath = getSafeFilePath(pathname);
-    if (!filePath) {
-      send(response, 403, "Forbidden", "text/plain; charset=utf-8");
-      return;
-    }
-
-    await serveFile(request, response, filePath);
     return;
   }
 

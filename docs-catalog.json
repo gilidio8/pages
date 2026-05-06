@@ -1,0 +1,24 @@
+[
+  {
+    "slug": "vaidemoto",
+    "clientName": "VAI DE MOTO",
+    "projectName": "Publicacao Play Store",
+    "summary": "Documentos separados para acompanhar o processo de publicacao do app na Google Play Store.",
+    "documents": [
+      {
+        "slug": "cliente",
+        "title": "Plano para o Cliente",
+        "description": "Visao executiva do processo, responsabilidades, etapas, banco de dados e prazos esperados.",
+        "audience": "Cliente",
+        "href": "/client-docs/vaidemoto/publicacao-playstore-cliente.html"
+      },
+      {
+        "slug": "tecnico",
+        "title": "Guia Tecnico",
+        "description": "Checklist operacional com Android, Play Store, Supabase, seguranca e envio.",
+        "audience": "Equipe tecnica",
+        "href": "/client-docs/vaidemoto/publicacao-playstore-tecnico.html"
+      }
+    ]
+  }
+]

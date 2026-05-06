@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guia Tecnico de Publicacao - Play Store</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --ink: #111827;
+      --muted: #5b6472;
+      --line: #d7dde6;
+      --code-bg: #101827;
+      --code-ink: #edf5ff;
+      --brand: #2563eb;
+      --accent: #0f766e;
+      --danger: #b91c1c;
+      --warn-bg: #fff7ed;
+      --info-bg: #eff6ff;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    header {
+      background: #111827;
+      color: #ffffff;
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    header p {
+      color: #cbd5e1;
+      margin: 12px 0 0;
+      max-width: 820px;
+      font-size: 17px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 18px 0 8px;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    section {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    code {
+      background: #eef2f7;
+      border: 1px solid #dbe3ee;
+      border-radius: 5px;
+      padding: 2px 5px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.94em;
+    }
+
+    pre {
+      margin: 12px 0 16px;
+      padding: 16px;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      border-radius: var(--radius);
+      overflow-x: auto;
+      line-height: 1.45;
+    }
+
+    pre code {
+      background: transparent;
+      border: 0;
+      color: inherit;
+      padding: 0;
+    }
+
+    ul,
+    ol {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 15px;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef2ff;
+      color: #1e3a8a;
+    }
+
+    .info,
+    .risk {
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin: 12px 0;
+    }
+
+    .info {
+      background: var(--info-bg);
+      border-left: 4px solid var(--brand);
+      color: #1e3a8a;
+    }
+
+    .risk {
+      background: var(--warn-bg);
+      border-left: 4px solid #f59e0b;
+      color: #7c2d12;
+    }
+
+    .checklist {
+      columns: 2;
+      column-gap: 36px;
+    }
+
+    .checklist li {
+      break-inside: avoid;
+    }
+
+    a {
+      color: #1d4ed8;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    @media (max-width: 800px) {
+      .checklist {
+        columns: 1;
+      }
+
+      header {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Guia tecnico para publicar o app na Play Store</h1>
+      <p>Documento operacional para preparar este projeto React/Vite com Capacitor 8, gerar o Android App Bundle assinado e enviar pela Play Console.</p>
+    </header>
+
+    <section>
+      <h2>Diagnostico deste repositorio</h2>
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Estado atual</th>
+          <th>Acao necessaria</th>
+        </tr>
+        <tr>
+          <td>Framework</td>
+          <td>React + Vite + TypeScript</td>
+          <td>Gerar build web com <code>npm run build</code>.</td>
+        </tr>
+        <tr>
+          <td>Mobile</td>
+          <td>Capacitor 8 com <code>@capacitor/android</code> instalado</td>
+          <td>Adicionar plataforma Android com <code>npx cap add android</code>.</td>
+        </tr>
+        <tr>
+          <td>Pasta Android</td>
+          <td>Nao existe no repositorio neste momento</td>
+          <td>Gerar antes de abrir no Android Studio.</td>
+        </tr>
+        <tr>
+          <td>App ID atual</td>
+          <td><code>app.lovable.1dda3c980f42476882a7e59e2b60eb4d</code></td>
+          <td>Trocar por identificador definitivo do cliente, ex.: <code>br.com.cliente.vaidemoto</code>.</td>
+        </tr>
+        <tr>
+          <td>Nome atual</td>
+          <td><code>VAI DE MOTO - TP</code></td>
+          <td>Confirmar nome final da loja com o cliente.</td>
+        </tr>
+        <tr>
+          <td>Servidor remoto</td>
+          <td><code>server.url</code> aponta para Lovable</td>
+          <td>Remover para release e usar os arquivos locais de <code>dist</code>.</td>
+        </tr>
+        <tr>
+          <td>Banco de dados</td>
+          <td>Supabase com Auth, RLS, migrations SQL, Edge Functions e buckets de storage.</td>
+          <td>Revisar ambiente de producao, variaveis, politicas, backup e dados de teste antes da publicacao.</td>
+        </tr>
+      </table>
+      <div class="risk">
+        O Capacitor documenta <code>server.url</code> e <code>cleartext</code> como recursos voltados a live reload/desenvolvimento, nao para producao. Para Play Store, empacote o build em <code>dist</code>.
+      </div>
+    </section>
+
+    <section>
+      <h2>Equipe e escopo operacional</h2>
+      <p>Projeto pequeno, conduzido por 3 pessoas. A divisao recomendada para evitar sobreposicao:</p>
+      <table>
+        <tr>
+          <th>Responsavel</th>
+          <th>Foco</th>
+          <th>Entregaveis</th>
+        </tr>
+        <tr>
+          <td>Pessoa 1</td>
+          <td>Gestao e loja</td>
+          <td>Conta Play Console, textos, screenshots, politica de privacidade, respostas de declaracoes e comunicacao com o cliente.</td>
+        </tr>
+        <tr>
+          <td>Pessoa 2</td>
+          <td>Aplicativo Android</td>
+          <td>Capacitor, appId final, build web, pasta Android, assinatura, AAB, testes em aparelho real e envio da release.</td>
+        </tr>
+        <tr>
+          <td>Pessoa 3</td>
+          <td>Banco de dados e backend</td>
+          <td>Supabase, migracoes, RLS, Edge Functions, variaveis de ambiente, usuarios de teste, backup e validacao de dados.</td>
+        </tr>
+      </table>
+      <div class="info">
+        Para manter o projeto pequeno, novas funcionalidades devem ser congeladas durante a fase de publicacao. A prioridade passa a ser estabilidade, privacidade, build assinado e revisao da Google.
+      </div>
+    </section>
+
+    <section>
+      <h2>Configuracao recomendada do Capacitor</h2>
+      <p>Arquivo: <code>capacitor.config.ts</code>.</p>
+      <pre><code>import type { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: 'br.com.cliente.vaidemoto',
+  appName: 'VAI DE MOTO',
+  webDir: 'dist',
+};
+
+export default config;</code></pre>
+      <ul>
+        <li>Defina o <code>appId</code> antes de publicar pela primeira vez. O package name e permanente na Play Store.</li>
+        <li>Remova <code>server.url</code> para evitar dependencia do Lovable em producao.</li>
+        <li>Remova <code>cleartext: true</code>, salvo necessidade tecnica muito bem justificada.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Ambiente necessario</h2>
+      <ul>
+        <li>Node.js LTS instalado.</li>
+        <li>Android Studio instalado.</li>
+        <li>Android SDK, Platform Tools e Build Tools instalados pelo SDK Manager.</li>
+        <li>JDK compativel com o Android Gradle Plugin gerado pelo Capacitor.</li>
+        <li>Acesso a conta Play Console do cliente com permissao para releases.</li>
+        <li>Acesso ao projeto Supabase correto, com permissao para banco, Auth, Storage, Edge Functions e variaveis.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Banco de dados Supabase</h2>
+      <p>O projeto usa Supabase no frontend por <code>src/integrations/supabase/client.ts</code> e possui migracoes em <code>supabase/migrations</code>.</p>
+      <table>
+        <tr>
+          <th>Area</th>
+          <th>O que existe no projeto</th>
+          <th>Validacao antes da Play Store</th>
+        </tr>
+        <tr>
+          <td>Autenticacao</td>
+          <td>Usuarios em <code>auth.users</code>, perfis em <code>profiles</code> e papeis em <code>user_roles</code>.</td>
+          <td>Criar usuario de teste para Google e confirmar fluxo de cadastro/login/redefinicao de senha.</td>
+        </tr>
+        <tr>
+          <td>Operacao</td>
+          <td><code>rides</code>, <code>driver_details</code>, <code>ride_ratings</code> e status de corrida.</td>
+          <td>Testar passageiro, motorista, aceite de corrida, cancelamento, conclusao e avaliacao.</td>
+        </tr>
+        <tr>
+          <td>Financeiro</td>
+          <td><code>platform_settings</code>, <code>driver_transactions</code> e campos de forma de pagamento.</td>
+          <td>Validar valores, comissoes, relatorios e se dados financeiros entram na declaracao de privacidade.</td>
+        </tr>
+        <tr>
+          <td>Notificacoes</td>
+          <td><code>push_subscriptions</code> e funcoes relacionadas a notificacao/email.</td>
+          <td>Confirmar permissao de notificacao no Android e comportamento quando o usuario nega a permissao.</td>
+        </tr>
+        <tr>
+          <td>Storage</td>
+          <td>Buckets como <code>avatars</code> e <code>email-assets</code>.</td>
+          <td>Revisar politicas de leitura/escrita e evitar exposicao indevida de documentos ou imagens.</td>
+        </tr>
+      </table>
+
+      <h3>Variaveis obrigatorias</h3>
+      <p>O build precisa receber as variaveis publicas do Supabase:</p>
+      <pre><code>VITE_SUPABASE_URL=...
+VITE_SUPABASE_PUBLISHABLE_KEY=...</code></pre>
+      <ul>
+        <li>Nao subir <code>.env</code> para o Git.</li>
+        <li>Configurar variaveis no ambiente que fizer o build.</li>
+        <li>Separar projeto Supabase de teste e producao quando houver dados reais.</li>
+      </ul>
+
+      <h3>Migracoes e seguranca</h3>
+      <ul>
+        <li>Aplicar as migrations em ordem no ambiente de producao.</li>
+        <li>Conferir se RLS esta ativo nas tabelas que guardam dados de usuario.</li>
+        <li>Validar politicas para passageiro, motorista e administrador.</li>
+        <li>Executar teste com usuarios reais de cada papel antes de enviar para revisao.</li>
+        <li>Confirmar rotina de backup ou exportacao do banco antes de abrir o app para usuarios finais.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Fluxo de build local</h2>
+      <h3>1. Instalar dependencias</h3>
+      <pre><code>npm install</code></pre>
+
+      <h3>2. Validar build web</h3>
+      <pre><code>npm run build</code></pre>
+
+      <h3>3. Adicionar Android na primeira vez</h3>
+      <pre><code>npx cap add android</code></pre>
+
+      <h3>4. Sincronizar em builds seguintes</h3>
+      <pre><code>npm run build
+npx cap sync android</code></pre>
+
+      <h3>5. Abrir no Android Studio</h3>
+      <pre><code>npx cap open android</code></pre>
+    </section>
+
+    <section>
+      <h2>Target SDK e compatibilidade</h2>
+      <p>O projeto usa Capacitor Android 8.x. Pela matriz oficial do Capacitor, a linha 8.x trabalha com target SDK 36.</p>
+      <p>Depois de gerar a pasta Android, conferir:</p>
+      <pre><code>android/variables.gradle</code></pre>
+      <p>O Google Play exige target API recente para novos apps e atualizacoes. Em 2026, mantenha Capacitor, Android Gradle Plugin e SDK atualizados antes do envio.</p>
+    </section>
+
+    <section>
+      <h2>Assinatura e chave de upload</h2>
+      <ol>
+        <li>Abra o projeto Android no Android Studio.</li>
+        <li>Acesse <code>Build &gt; Generate Signed Bundle / APK</code>.</li>
+        <li>Escolha <code>Android App Bundle</code>.</li>
+        <li>Crie uma keystore se ainda nao existir.</li>
+        <li>Guarde arquivo <code>.jks</code>, senha da keystore, alias e senha do alias.</li>
+        <li>Selecione variant <code>release</code> e gere o AAB.</li>
+      </ol>
+      <p>Saida esperada:</p>
+      <pre><code>android/app/build/outputs/bundle/release/app-release.aab</code></pre>
+      <div class="risk">
+        Nao versionar a keystore no Git. Guarde em cofre de senhas ou armazenamento seguro do cliente. A chave e necessaria para atualizacoes futuras.
+      </div>
+    </section>
+
+    <section>
+      <h2>Opcao de build via terminal</h2>
+      <p>Depois de configurar assinatura no Gradle, o bundle pode ser gerado assim:</p>
+      <pre><code>cd android
+.\gradlew bundleRelease</code></pre>
+      <p>Se usar variaveis locais para senhas, mantenha arquivos como <code>keystore.properties</code> fora do Git e valide o <code>.gitignore</code>.</p>
+    </section>
+
+    <section>
+      <h2>Preparacao da Play Console</h2>
+      <ol>
+        <li>Criar app em <code>Home &gt; Create app</code>.</li>
+        <li>Selecionar idioma padrao, nome, app/jogo, gratis/pago e email de contato.</li>
+        <li>Aceitar Play App Signing.</li>
+        <li>Preencher ficha da loja: nome, descricao curta, descricao completa, icone, screenshots e feature graphic.</li>
+        <li>Preencher categoria, tags e dados de contato.</li>
+        <li>Adicionar politica de privacidade.</li>
+        <li>Responder declaracoes de conteudo, seguranca de dados, publico-alvo e permissoes.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Declaracoes que exigem atencao</h2>
+      <table>
+        <tr>
+          <th>Declaracao</th>
+          <th>O que verificar</th>
+        </tr>
+        <tr>
+          <td>Data safety</td>
+          <td>Dados de usuario, login, localizacao, identificadores, dados de contato, arquivos e compartilhamento com terceiros como Supabase ou Google Maps.</td>
+        </tr>
+        <tr>
+          <td>App access</td>
+          <td>Se houver login, fornecer usuario e senha de teste para a revisao da Google.</td>
+        </tr>
+        <tr>
+          <td>Permissions</td>
+          <td>Justificar permissoes sensiveis, principalmente localizacao, notificacoes e servicos em primeiro plano.</td>
+        </tr>
+        <tr>
+          <td>Content rating</td>
+          <td>Responder questionario de classificacao indicativa de acordo com o conteudo real do app.</td>
+        </tr>
+        <tr>
+          <td>Target audience</td>
+          <td>Definir faixa etaria correta e evitar declaracoes incompatíveis com coleta de dados.</td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>Teste antes da producao</h2>
+      <ul>
+        <li>Rodar o app em aparelho Android real.</li>
+        <li>Testar instalacao a partir da trilha de teste da Play Store, nao apenas via Android Studio.</li>
+        <li>Validar login, cadastro, fluxo principal, mapa/localizacao, notificacoes e telas de erro.</li>
+        <li>Validar leitura e escrita no Supabase usando usuarios de passageiro, motorista e administrador.</li>
+        <li>Testar com internet ruim e sem internet.</li>
+        <li>Confirmar que nenhum badge, ambiente de preview ou URL do Lovable aparece no app final.</li>
+      </ul>
+      <div class="info">
+        Contas pessoais criadas depois de 13/11/2023 podem precisar de teste fechado com pelo menos 12 testadores opt-in por 14 dias continuos antes de solicitar acesso a producao.
+      </div>
+    </section>
+
+    <section>
+      <h2>Envio do AAB</h2>
+      <ol>
+        <li>Ir em <code>Test and release &gt; Testing &gt; Internal testing</code>.</li>
+        <li>Criar release.</li>
+        <li>Enviar o arquivo <code>app-release.aab</code>.</li>
+        <li>Conferir avisos de target SDK, assinatura, permissoes e tamanho.</li>
+        <li>Adicionar release notes.</li>
+        <li>Publicar a trilha de teste.</li>
+        <li>Depois de validar, promover para closed testing ou production.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Atualizacoes futuras</h2>
+      <p>Para cada nova versao enviada a Play Store:</p>
+      <ol>
+        <li>Incrementar <code>versionCode</code>.</li>
+        <li>Ajustar <code>versionName</code>, se necessario.</li>
+        <li>Rodar <code>npm run build</code>.</li>
+        <li>Rodar <code>npx cap sync android</code>.</li>
+        <li>Gerar novo AAB assinado com a mesma upload key.</li>
+        <li>Enviar para teste ou producao.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Checklist tecnico</h2>
+      <ul class="checklist">
+        <li>[ ] Conta Play Console do cliente acessivel.</li>
+        <li>[ ] <code>appId</code> definitivo definido.</li>
+        <li>[ ] <code>server.url</code> removido para release.</li>
+        <li>[ ] <code>cleartext</code> removido, salvo necessidade aprovada.</li>
+        <li>[ ] <code>npm install</code> executado.</li>
+        <li>[ ] <code>npm run build</code> passando.</li>
+        <li>[ ] <code>npx cap add android</code> executado na primeira vez.</li>
+        <li>[ ] <code>npx cap sync android</code> executado.</li>
+        <li>[ ] Target SDK conferido.</li>
+        <li>[ ] Icone e splash configurados.</li>
+        <li>[ ] Keystore criada e guardada.</li>
+        <li>[ ] AAB release assinado gerado.</li>
+        <li>[ ] Teste em aparelho real feito.</li>
+        <li>[ ] Politica de privacidade publicada.</li>
+        <li>[ ] Data safety preenchido.</li>
+        <li>[ ] Usuario de teste informado, se houver login.</li>
+        <li>[ ] Projeto Supabase de producao confirmado.</li>
+        <li>[ ] Migrations aplicadas no banco correto.</li>
+        <li>[ ] RLS e politicas revisadas para passageiro, motorista e administrador.</li>
+        <li>[ ] Buckets de storage revisados.</li>
+        <li>[ ] Backup ou exportacao inicial definido.</li>
+        <li>[ ] Variaveis <code>VITE_SUPABASE_URL</code> e <code>VITE_SUPABASE_PUBLISHABLE_KEY</code> configuradas no ambiente de build.</li>
+        <li>[ ] Release enviada primeiro para teste.</li>
+        <li>[ ] Producao enviada apos validacao.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Fontes oficiais</h2>
+      <ul>
+        <li><a href="https://support.google.com/googleplay/android-developer/answer/9859152">Google Play Console - criar e configurar app</a></li>
+        <li><a href="https://support.google.com/googleplay/android-developer/answer/9859348">Google Play Console - preparar e publicar release</a></li>
+        <li><a href="https://support.google.com/googleplay/android-developer/answer/14151465">Google Play Console - requisitos de teste para novas contas pessoais</a></li>
+        <li><a href="https://support.google.com/googleplay/android-developer/answer/11926878">Google Play Console - target API level</a></li>
+        <li><a href="https://developer.android.com/studio/publish/app-signing">Android Developers - assinatura de apps</a></li>
+        <li><a href="https://developer.android.com/guide/app-bundle">Android Developers - Android App Bundle</a></li>
+        <li><a href="https://capacitorjs.com/docs/android/deploying-to-google-play">Capacitor - Deploying to Google Play</a></li>
+        <li><a href="https://capacitorjs.com/docs/config">Capacitor - configuracao</a></li>
+        <li><a href="https://capacitorjs.com/docs/android/setting-target-sdk">Capacitor - target SDK</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      Documento tecnico preparado em 05/05/2026 para o projeto VAI DE MOTO.
+    </footer>
+  </main>
+</body>
+</html>

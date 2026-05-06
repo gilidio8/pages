@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plano de Publicacao na Play Store - VAI DE MOTO</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --ink: #172033;
+      --muted: #5e6a7d;
+      --line: #dbe2ee;
+      --brand: #0f766e;
+      --brand-2: #164e63;
+      --warn: #92400e;
+      --soft: #e8f5f3;
+      --soft-2: #eef4ff;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 36px 20px 56px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f766e, #164e63);
+      color: #ffffff;
+      border-radius: var(--radius);
+      padding: 34px;
+      margin-bottom: 24px;
+    }
+
+    header p {
+      max-width: 760px;
+      color: #dff7f3;
+      margin: 12px 0 0;
+      font-size: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    section {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: #fbfcff;
+    }
+
+    .number {
+      display: inline-flex;
+      width: 28px;
+      height: 28px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #ffffff;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    .note {
+      border-left: 4px solid var(--brand);
+      background: var(--soft);
+      padding: 14px 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      color: #134e4a;
+    }
+
+    .warning {
+      border-left: 4px solid #f59e0b;
+      background: #fff7ed;
+      padding: 14px 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      color: var(--warn);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .timeline div {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .timeline div:nth-child(4n+1),
+    .timeline div:nth-child(4n+2) {
+      background: var(--soft-2);
+    }
+
+    .timeline div:nth-last-child(-n+2) {
+      border-bottom: 0;
+    }
+
+    .label {
+      font-weight: 700;
+      color: var(--brand-2);
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      padding: 12px 0 0;
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline div {
+        border-bottom: 0;
+      }
+
+      .timeline .label {
+        padding-bottom: 4px;
+      }
+
+      header {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Plano de publicacao na Google Play Store</h1>
+      <p>Documento para explicar como o app VAI DE MOTO sera preparado, testado, enviado para revisao e publicado na loja Android.</p>
+    </header>
+
+    <section>
+      <h2>Objetivo</h2>
+      <p>Publicar o aplicativo na Google Play Store com uma conta de desenvolvedor do cliente, seguindo as exigencias tecnicas, de privacidade e de revisao da Google.</p>
+      <p>O processo envolve preparacao do aplicativo, criacao da ficha na loja, envio para testes, preenchimento das declaracoes obrigatorias e liberacao para producao apos aprovacao.</p>
+      <div class="note">
+        Recomendacao: a conta Play Console deve ser do cliente. Assim o cliente mantem a propriedade do app, das avaliacoes, das politicas, dos dados legais e das futuras atualizacoes.
+      </div>
+    </section>
+
+    <section>
+      <h2>Escopo e equipe</h2>
+      <p>O VAI DE MOTO e tratado como um projeto pequeno, com escopo controlado e uma equipe operacional de 3 pessoas.</p>
+      <div class="timeline">
+        <div class="label">Pessoa 1</div>
+        <div>Organizacao do projeto, alinhamento com o cliente, materiais da loja e acompanhamento da Play Console.</div>
+        <div class="label">Pessoa 2</div>
+        <div>Preparacao tecnica do aplicativo, build Android, assinatura, testes em aparelho real e envio do pacote AAB.</div>
+        <div class="label">Pessoa 3</div>
+        <div>Banco de dados, Supabase, regras de acesso, dados de teste, verificacao de seguranca e suporte aos testes.</div>
+      </div>
+      <p class="note">
+        A equipe reduzida facilita a comunicacao, mas exige aprovacoes rapidas do cliente para evitar paradas em conta Google, politica de privacidade, dados de acesso e materiais da loja.
+      </p>
+    </section>
+
+    <section>
+      <h2>Etapas do processo</h2>
+      <div class="grid">
+        <div class="item">
+          <span class="number">1</span>
+          <h3>Organizacao da conta</h3>
+          <p>Confirmar a conta Play Console do cliente, dados de contato, acesso do responsavel tecnico e aceite dos termos da Google.</p>
+        </div>
+        <div class="item">
+          <span class="number">2</span>
+          <h3>Preparacao do app</h3>
+          <p>Configurar nome, identificador definitivo, icones, tela inicial, versao e pacote Android para envio a loja.</p>
+        </div>
+        <div class="item">
+          <span class="number">3</span>
+          <h3>Build assinado</h3>
+          <p>Gerar o arquivo oficial Android App Bundle, conhecido como AAB, assinado com chave segura.</p>
+        </div>
+        <div class="item">
+          <span class="number">4</span>
+          <h3>Ficha da loja</h3>
+          <p>Cadastrar descricao, imagens, categoria, email de suporte, politica de privacidade e informacoes publicas do app.</p>
+        </div>
+        <div class="item">
+          <span class="number">5</span>
+          <h3>Testes</h3>
+          <p>Publicar primeiro em teste interno ou fechado para validar instalacao, login, funcionalidades e estabilidade.</p>
+        </div>
+        <div class="item">
+          <span class="number">6</span>
+          <h3>Banco de dados</h3>
+          <p>Revisar Supabase, usuarios, permissoes, tabelas, politicas de acesso e dados necessarios para teste da Google.</p>
+        </div>
+        <div class="item">
+          <span class="number">7</span>
+          <h3>Producao</h3>
+          <p>Enviar para revisao da Google e liberar para usuarios apos aprovacao.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Responsabilidades do cliente</h2>
+      <ul>
+        <li>Fornecer ou criar a conta Google Play Console.</li>
+        <li>Informar nome final do app, email de suporte, site e contatos oficiais.</li>
+        <li>Aprovar icone, screenshots, textos da loja e categoria.</li>
+        <li>Disponibilizar a URL da politica de privacidade.</li>
+        <li>Validar se o app coleta dados pessoais, localizacao, telefone, documentos, dados de pagamento ou outros dados sensiveis.</li>
+        <li>Fornecer usuarios de teste caso o app exija login.</li>
+        <li>Confirmar quem sera o responsavel pela conta Supabase e pelos acessos administrativos do banco de dados.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Responsabilidades tecnicas</h2>
+      <ul>
+        <li>Preparar o app para rodar como aplicativo Android nativo.</li>
+        <li>Gerar o pacote AAB exigido pela Play Store para novos apps.</li>
+        <li>Configurar a assinatura do app com chave de upload.</li>
+        <li>Verificar permissoes Android e exigencias de privacidade.</li>
+        <li>Revisar banco de dados, regras de acesso, backups e variaveis de ambiente antes do envio.</li>
+        <li>Executar testes em aparelho real antes da publicacao.</li>
+        <li>Acompanhar erros ou avisos apontados pela Play Console.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Banco de dados e dados do app</h2>
+      <p>O aplicativo usa Supabase como base de dados e autenticacao. Antes da publicacao, essa parte precisa estar revisada porque a Play Store tambem avalia privacidade, login e coleta de dados.</p>
+      <div class="timeline">
+        <div class="label">Usuarios</div>
+        <div>Cadastro, login, perfis de passageiro, motorista e administrador.</div>
+        <div class="label">Corridas</div>
+        <div>Solicitacoes, status, motorista vinculado, valores, localizacao e historico operacional.</div>
+        <div class="label">Financeiro</div>
+        <div>Configuracoes da plataforma, transacoes de motorista, formas de pagamento e registros usados em relatorios.</div>
+        <div class="label">Arquivos</div>
+        <div>Fotos de perfil, anexos ou imagens armazenadas em buckets controlados pelo Supabase.</div>
+        <div class="label">Seguranca</div>
+        <div>Politicas de acesso para que cada usuario veja apenas os dados permitidos ao seu perfil.</div>
+      </div>
+      <ul>
+        <li>Confirmar se o banco de producao ja esta separado do ambiente de teste.</li>
+        <li>Conferir se existe backup ou plano de recuperacao para dados de usuarios e corridas.</li>
+        <li>Usar dados ficticios para revisao da Google quando possivel.</li>
+        <li>Declarar corretamente na Play Store dados pessoais, localizacao, notificacoes, contato e compartilhamento com terceiros.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Informacoes que entram na Play Store</h2>
+      <div class="timeline">
+        <div class="label">Identidade</div>
+        <div>Nome do app, icone, categoria, idioma padrao e dados de contato.</div>
+        <div class="label">Descricao</div>
+        <div>Descricao curta, descricao completa e explicacao clara do valor do aplicativo.</div>
+        <div class="label">Imagens</div>
+        <div>Screenshots do app em uso, imagem de destaque e materiais visuais aprovados pelo cliente.</div>
+        <div class="label">Privacidade</div>
+        <div>Politica de privacidade e formulario de seguranca de dados com o que o app coleta e para qual finalidade.</div>
+        <div class="label">Acesso</div>
+        <div>Credenciais de teste para a equipe de revisao da Google, se o app tiver login obrigatorio.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Prazos esperados</h2>
+      <p>O prazo considera projeto pequeno, equipe de 3 pessoas e materiais respondidos sem atraso pelo cliente. Uma estimativa pratica:</p>
+      <div class="timeline">
+        <div class="label">1 a 2 dias</div>
+        <div>Preparacao tecnica do app, revisao do banco de dados, build Android, icones, ficha inicial e testes basicos.</div>
+        <div class="label">1 a 3 dias</div>
+        <div>Ajustes apos testes, revisao dos textos, politica de privacidade e declaracoes obrigatorias.</div>
+        <div class="label">Horas a dias</div>
+        <div>Revisao da Google apos o envio para producao.</div>
+        <div class="label">14 dias</div>
+        <div>Pode ser necessario em contas pessoais novas que precisam cumprir teste fechado com 12 testadores.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Pontos de atencao</h2>
+      <div class="warning">
+        A Google pode reprovar ou pedir ajustes se houver informacoes incompletas, politica de privacidade ausente, coleta de dados declarada incorretamente, permissoes sem justificativa ou app com falhas de login/funcionamento.
+      </div>
+      <ul>
+        <li>O identificador do app deve ser definitivo antes da primeira publicacao.</li>
+        <li>A chave de assinatura deve ser guardada com seguranca.</li>
+        <li>Apps com login precisam fornecer acesso de teste para revisao.</li>
+        <li>Alteracoes futuras exigem nova versao e novo envio para revisao.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Resultado esperado</h2>
+      <p>Ao final, o cliente tera o aplicativo publicado na Play Store, vinculado a sua propria conta, com ficha comercial preenchida, declaracoes obrigatorias revisadas e processo preparado para futuras atualizacoes.</p>
+    </section>
+
+    <footer>
+      Documento preparado em 05/05/2026. Fontes principais: Google Play Console Help, Android Developers e documentacao oficial do Capacitor.
+    </footer>
+  </main>
+</body>
+</html>

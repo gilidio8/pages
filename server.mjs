@@ -52,7 +52,7 @@ const redirectWithCookie = (request, response, location, cookieValue) => {
   const secure = request.headers["x-forwarded-proto"] === "https" ? "; Secure" : "";
   response.writeHead(302, {
     location,
-    "set-cookie": `${sessionCookieName}=${cookieValue}; HttpOnly; SameSite=Lax; Path=/; Max-Age=604800${secure}`,
+    "set-cookie": `${sessionCookieName}=${cookieValue}; HttpOnly; SameSite=Lax; Path=/${secure}`,
   });
   response.end();
 };
@@ -243,7 +243,8 @@ const renderLayout = (title, body, redirectUrl = null) => `<!doctype html>
     .viewer-head p { margin: 0; color: #64748b; line-height: 1.45; }
     .viewer-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
     .open-link, .client-link, button { background: #0f766e; border: 0; border-radius: 6px; color: #fff; cursor: pointer; display: inline-block; font: inherit; font-weight: 700; padding: 10px 14px; text-decoration: none; white-space: nowrap; }
-    .logout-link { color: #64748b; font-weight: 700; text-decoration: none; }
+    .logout-link { border: 1px solid #cbd5e1; border-radius: 6px; color: #334155; display: inline-block; font-weight: 700; padding: 9px 13px; text-decoration: none; }
+    .logout-link:hover { background: #f1f5f9; }
     iframe { border: 0; display: block; height: 76vh; min-height: 620px; width: 100%; }
     .intro { color: #172033; margin: 32px auto; max-width: 760px; }
     .intro h1 { color: #172033; }

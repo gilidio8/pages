@@ -14,3 +14,7 @@ O Railway usa `railway.json`:
 
 - build: `npm run build`
 - start: `npm run start`
+
+Configure a variavel de ambiente no Railway:
+
+- `senha`: senha de acesso aos documentos
